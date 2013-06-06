@@ -26,6 +26,8 @@ import types
 from pylab import *
 import signal
 
+Trust_CA_path = "/Users/malmeshekah/Documents/cacerts/Trusted_CAs"
+
 #########################################################
 #	The definition of thread to handle the		#
 #	      for non-blocking reading from the PIPE    #
@@ -118,7 +120,7 @@ def get_connecs(dir, L):
 	
 		###############################################################
 		##### Running the openssl command to get the certificates #####
-		pid = subprocess.Popen("echo GET | openssl s_client -connect %s:443 -showcerts" % x, stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+		pid = subprocess.Popen("echo GET | openssl s_client -CApath %s -connect %s:443 -showcerts" % (Trust_CA_path, x), stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
 		fin = pid.stdout
 		qu = Queue()
 		thr = reading_thread(fin, qu)
@@ -308,6 +310,8 @@ def parse_connecs(dir_path, L, top):
 		ssl_session = 0
 		protocol = ""
 		cipher = ""
+		verify_code = -1
+		verify_msg = ""
 		for line in file.readlines():
 			matchObj = re.search( r'^.*SSL-Session:.*$', line, re.I|re.M)
 			if matchObj:
@@ -318,11 +322,15 @@ def parse_connecs(dir_path, L, top):
 			matchObj = re.search( r'^.*[Cc]ipher\s*:\s*(.*)$', line, re.I|re.M)
 			if ssl_session == 1 and matchObj:
 				cipher = matchObj.group(1)
+			matchObj = re.search( r'^.*[Vv]erify return code\s*:\s*(\d+)\s*\((.*)\).*$', line, re.I|re.M)
+			if matchObj:
+				verify_code = matchObj.group(1)
+				verify_msg = matchObj.group(2)
 		file.close()
 		if cert_id == -1:
 			sql = '''INSERT IGNORE INTO ssl_connecs(uri, top) VALUES ("%s", %d);''' % (cert_name, top)
 		else:
-			sql = '''INSERT INTO ssl_connecs(protocol, cipher, cert_id, uri, top) VALUES ("%s", "%s", %d, "%s", %d) ON DUPLICATE KEY UPDATE protocol="%s", cipher="%s";''' % (protocol, cipher, cert_id, cert_name, top, protocol, cipher)
+			sql = '''INSERT INTO ssl_connecs(protocol, cipher, cert_id, uri, top, verify_code, verify_msg) VALUES ("%s", "%s", %d, "%s", %d, %d, "%s") ON DUPLICATE KEY UPDATE protocol="%s", cipher="%s";''' % (protocol, cipher, cert_id, cert_name, top, verify_code, verify_msg, protocol, cipher)
 		try:
 			cursor.execute(sql)
 		except Exception as ex:
@@ -525,13 +533,14 @@ def parse_certs_from_files(dir_path, L, top):
 			serial_num = x509.get_serial_number()
 			sig_alg = x509.get_signature_algorithm()
 			version = x509.get_version()
+			version += 1
 			key_length = x509.get_pubkey().bits()
 			digest = hashlib.sha224()
 			digest.update(cert)
 			cert_digest = digest.digest()
 			cert_digest = base64.b64encode(cert_digest)
 			sql = '''INSERT INTO certs(serial, alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version)'''
-			sql += ''' VALUES ("%s", "%s", %d, "%s", %d, %d, %d, "%s", %d, "%s") ON DUPLICATE KEY UPDATE cert_id=LAST_INSERT_ID(cert_id), cert_name = "%s";''' % (serial_num, sig_alg, key_length, cert_digest, issuer_id, subject_id, top, file_name, is_self_signed, file_name, version)
+			sql += ''' VALUES ("%s", "%s", %d, "%s", %d, %d, %d, "%s", %d, %d) ON DUPLICATE KEY UPDATE cert_id=LAST_INSERT_ID(cert_id), cert_name = "%s";''' % (serial_num, sig_alg, key_length, cert_digest, issuer_id, subject_id, top, file_name, is_self_signed, file_name, version)
 			cursor.execute(sql)
 			cert_id = db.insert_id()
 		except MySQLdb.Error, e:
@@ -588,6 +597,8 @@ def parse_certs_from_connecs(dir_path, L, top):
 		ssl_session = 0
 		protocol = ""
 		cipher = ""
+		verify_code = -1
+		verify_msg = ""
 		certFound = 0
 		certs = list()
 		for line in file.readlines():
@@ -610,6 +621,11 @@ def parse_certs_from_connecs(dir_path, L, top):
 			matchObj = re.search( r'^.*[Cc]ipher\s*:\s*(.*)$', line, re.I|re.M)
 			if ssl_session == 1 and matchObj:
 				cipher = matchObj.group(1)
+			matchObj = re.search( r'^.*[Vv]erify return code\s*:\s*(\d+)\s*\((.*)\).*$', line, re.I|re.M)
+			if matchObj:
+				verify_code = matchObj.group(1)
+				verify_code = int(verify_code)
+				verify_msg = matchObj.group(2)
 		file.close()
 		certs.reverse()
 		num_of_certs = len(certs)
@@ -791,10 +807,10 @@ def parse_certs_from_connecs(dir_path, L, top):
 				cert_digest = base64.b64encode(cert_digest)
 				if j == 0:
 					sql = '''INSERT INTO certs(serial, alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version)'''
-					sql += ''' VALUES ("%s", "%s", %d, "%s", %d, %d, %d, "%s", %d, "%s") ON DUPLICATE KEY UPDATE cert_id=LAST_INSERT_ID(cert_id), cert_name = "%s";''' % (serial_num, sig_alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version, cert_name)
+					sql += ''' VALUES ("%s", "%s", %d, "%s", %d, %d, %d, "%s", %d, %d) ON DUPLICATE KEY UPDATE cert_id=LAST_INSERT_ID(cert_id), cert_name = "%s";''' % (serial_num, sig_alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version, cert_name)
 				else:					
 					sql = '''INSERT INTO certs(serial, alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version, parent_cert_id)'''
-					sql += ''' VALUES ("%s", "%s", %d, "%s", %d, %d, %d, "%s", %d, "%s", %d) ON DUPLICATE KEY UPDATE cert_id=LAST_INSERT_ID(cert_id), cert_name = "%s";''' % (serial_num, sig_alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version, prev_cert_id, cert_name)
+					sql += ''' VALUES ("%s", "%s", %d, "%s", %d, %d, %d, "%s", %d, %d, %d) ON DUPLICATE KEY UPDATE cert_id=LAST_INSERT_ID(cert_id), cert_name = "%s";''' % (serial_num, sig_alg, key_length, cert_digest, issuer_id, subject_id, top, cert_name, is_self_signed, version, prev_cert_id, cert_name)
 				cursor.execute(sql)
 				cert_id = db.insert_id()
 				prev_cert_id = cert_id
@@ -830,7 +846,7 @@ def parse_certs_from_connecs(dir_path, L, top):
 		if len(certs) == 0:
 			sql = '''INSERT IGNORE INTO ssl_connecs(uri, top) VALUES ("%s", %d);''' % (uri, top)
 		else:
-			sql = '''INSERT INTO ssl_connecs(protocol, cipher, cert_id, uri, top) VALUES ("%s", "%s", %d, "%s", %d) ON DUPLICATE KEY UPDATE protocol="%s", cipher="%s";''' % (protocol, cipher, cert_id, uri, top, protocol, cipher)
+			sql = '''INSERT INTO ssl_connecs(protocol, cipher, cert_id, uri, top, verify_code, verify_msg) VALUES ("%s", "%s", %d, "%s", %d, %d, "%s") ON DUPLICATE KEY UPDATE protocol="%s", cipher="%s";''' % (protocol, cipher, cert_id, uri, top, verify_code, verify_msg, protocol, cipher)
 		try:
 			cursor.execute(sql)
 		except Exception as ex:
@@ -874,6 +890,7 @@ def get_CRLs(dir_path, L, top):
 		crl_id = -1
 		try:
 			##### Reasons for revoking #####
+			wrong = 0
 			rNone = 0
 			unspecified = 0
 			keyCompromise = 0
@@ -907,8 +924,8 @@ def get_CRLs(dir_path, L, top):
 			crl_size = len(crl_der)
 			crl = OpenSSL.crypto.load_crl(OpenSSL.crypto.FILETYPE_ASN1, crl_der)
 			revoked = crl.get_revoked()
-			num_of_revoked = -1
-			if revoked is not None or len(revoked) == 0:
+			num_of_revoked = 0
+			if revoked is not None:
 				num_of_revoked = len(revoked)
 				for rev in revoked:
 					reason = rev.get_reason()
@@ -937,8 +954,9 @@ def get_CRLs(dir_path, L, top):
 						aACompromise += 1
 					else:
 						print ("Unrecognized revocation reason [%s]" % reason)
-			sql = '''INSERT IGNORE INTO crls(crl_uri_id, num_of_revoked, crl_size, crl_digest, rNone, unspecified, keyCompromise, cACompromise, affiliationChanged, superseded, cessationOfOperation, certificateHold, removeFromCRL, privilegeWithdrawn, aACompromise) '''
-			sql += '''VALUES (%d, %d, %d, "%s", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)''' % (crl_uri_id, num_of_revoked, crl_size, crl_digest, rNone, unspecified, keyCompromise, cACompromise, affiliationChanged, superseded, cessationOfOperation, certificateHold, removeFromCRL, privilegeWithdrawn, aACompromise)
+						wrong += 1
+			sql = '''INSERT IGNORE INTO crls(crl_uri_id, num_of_revoked, crl_size, crl_digest, rNone, unspecified, keyCompromise, cACompromise, affiliationChanged, superseded, cessationOfOperation, certificateHold, removeFromCRL, privilegeWithdrawn, aACompromise, wrong) '''
+			sql += '''VALUES (%d, %d, %d, "%s", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)''' % (crl_uri_id, num_of_revoked, crl_size, crl_digest, rNone, unspecified, keyCompromise, cACompromise, affiliationChanged, superseded, cessationOfOperation, certificateHold, removeFromCRL, privilegeWithdrawn, aACompromise, wrong)
 			try:
 				cursor.execute(sql)
 				crl_id = db.insert_id()
@@ -994,135 +1012,6 @@ def get_CRLs(dir_path, L, top):
 	db.commit()
 	db.close()
 
-
-#########################################################################
-# Parse the CRL objects, and save their information in the DB		#
-# Assumes:								#
-#	get_CRLs() has been executed					#
-#########################################################################
-def parse_CRLs(L):
-	# Open database connection
-	db = MySQLdb.connect("localhost","root","","CRL", charset='utf8' )	
-	# prepare a cursor object using cursor() method
-	cursor = db.cursor()
-	# Number of bad CRLs
-	num_bad_crls = 0
-	for index, crl_obj in enumerate(L):
-		if (index % 50) == 0:
-			print ("(%d) CRLs have been parsed" % index)
-		##################################
-		##### Parsing the CRL Object #####
-#		crl_uri_id = crl_row[0]
-		crl_id = -1
-		try:
-			##### Reasons for revoking #####
-			rNone = 0
-			unspecified = 0
-			keyCompromise = 0
-			cACompromise = 0
-			affiliationChanged = 0
-			superseded = 0
-			cessationOfOperation = 0
-			certificateHold = 0
-			removeFromCRL = 0
-			privilegeWithdrawn = 0
-			aACompromise = 0
-			digest = hashlib.sha224()
-			digest.update(crl_obj)
-			crl_digest = digest.digest()
-			crl_digest = base64.b64encode(crl_digest)
-			crl_size = len(crl_obj)
-			crl = OpenSSL.crypto.load_crl(OpenSSL.crypto.FILETYPE_ASN1, crl_obj)
-			revoked = crl.get_revoked()
-			num_of_revoked = -1
-			if revoked is not None:
-				num_of_revoked = len(revoked)
-				for rev in revoked:
-					reason = rev.get_reason()
-					reason = str(reason)
-					if reason == "None":
-						rNone += 1
-					elif reason == "unspecified" or reason == "Unspecified" or reason == "0":
-						unspecified += 1
-					elif reason == "keyCompromise" or reason == "Key Compromise" or reason == "1":
-						keyCompromise += 1
-					elif reason == "cACompromise" or reason == "CA Compromise" or reason == "2":
-						cACompromise += 1
-					elif reason == "affiliationChanged" or reason == "Affiliation Changed" or reason == "3":
-						affiliationChanged += 1
-					elif reason == "superseded" or reason == "Superseded" or reason == "4":
-						superseded += 1
-					elif reason == "cessationOfOperation" or reason == "Cessation Of Operation" or reason == "5":
-						cessationOfOperation += 1
-					elif reason == "certificateHold" or reason == "Certificate Hold" or reason == "6":
-						certificateHold += 1
-					elif reason == "removeFromCRL" or reason == "Remove From CRL" or reason == "8":
-						removeFromCRL += 1
-					elif reason == "privilegeWithdrawn" or reason == "Privilege Withdrawn" or reason == "9":
-						privilegeWithdrawn += 1
-					elif reason == "aACompromise" or reason == "AA Compromise" or reason == "10":
-						aACompromise += 1
-					else:
-						print ("Unrecognized revocation reason [%s]" % reason)
-			##############################
-			##### Get the CRL URI ID #####
-			
-			sql = '''INSERT IGNORE INTO crls(crl_uri_id, num_of_revoked, crl_size, crl_digest, rNone, unspecified, keyCompromise, cACompromise, affiliationChanged, superseded, cessationOfOperation, certificateHold, removeFromCRL, privilegeWithdrawn, aACompromise) '''
-			sql += '''VALUES (%d, %d, %d, "%s", %d, %d, %d, %d, %d, %d, %d, %d, %d, %d, %d)''' % (crl_uri_id, num_of_revoked, crl_size, crl_digest, rNone, unspecified, keyCompromise, cACompromise, affiliationChanged, superseded, cessationOfOperation, certificateHold, removeFromCRL, privilegeWithdrawn, aACompromise)
-			try:
-				cursor.execute(sql)
-				crl_id = db.insert_id()
-			except MySQLdb.Error, e:
-				print ("\tError7 %d: %s SQL STMT [%s]" % (e.args[0], e.args[1], sql))
-				print ("\tError7 adding the CRL of [%s]" % crl_row[1])
-				sys.exit()
-			
-			##### Clean Up
-			thr.join()
-			del thr
-			del myL
-			
-			################################################
-			##### Saving the CRL information in a file #####
-			f = open("../CRLs_100k_%d/%d.crl" % (top, crl_id), "wb")
-			f.write(crl_der)
-			f.close()
-		except urllib2.URLError as ex:
-			if type(ex) is urllib2.HTTPError:
-				num_bad_uri += 1
-			else:
-				reason = ex.args[0]
-				if reason == "no host given":
-					num_bad_uri += 1
-				elif str(reason) == "[Errno 8] nodename nor servname provided, or not known":
-					num_bad_uri += 1
-				elif str(reason) == "[Errno 61] Connection refused":
-					num_bad_uri += 1
-				elif str(reason) == "[Errno 8] _ssl.c:503: EOF occurred in violation of protocol":
-					num_bad_uri += 1
-				elif str(reason) == "[Errno 54] Connection reset by peer":
-					num_bad_uri += 1
-				elif str(reason) == "timed out":
-					num_time_out += 1
-				else:
-					print ("\tError7_1 in the URI of CRL [%s]" % crl_row[1])
-					print ("\t" + str(reason))
-		except Exception as ex:
-			if type(ex) is OpenSSL.crypto.Error:
-				num_bad_crls += 1
-			elif type(ex) is socket.timeout:
-				#print ("\tSocket timed out connection to [%s]" % crl_row[1])
-				num_time_out += 1
-			else:
-				print ("\tError8 with CRL of [%s]" % crl_row[1])
-				print (ex.args)
-				print (type(ex))
-				continue
-	print ("We Had (%d) bad URIs, (%d) URIs that timed out and (%d) bad CRL objects" % (num_bad_uri, num_time_out, num_bad_crls))
-	
-	##### Close the DB #####
-	db.commit()
-	db.close()
 
 #########################################################
 # 		Main program				#
@@ -1326,12 +1215,27 @@ def main(argv):
 		if top < 1 or top > 10:
 			print ('usage: crl_crawling.py -m <module> -a <argument>')
 			sys.exit()
-		pid = subprocess.Popen("python crl_crawling.py -m get_connecs -a %d" % top, shell=True)
-		pid.wait()
+		#pid = subprocess.Popen("python crl_crawling.py -m get_connecs -a %d" % top, shell=True)
+		#pid.wait()
 		pid = subprocess.Popen("python crl_crawling.py -m parse_certs_from_connecs -a %d" % top, shell=True)
 		pid.wait()
 		pid = subprocess.Popen("python crl_crawling.py -m get_CRLs -a %d" % top, shell=True)
 		pid.wait()
+	
+	##### Doing everything - for all the million #####
+	######################################################################################################
+	elif module == "ALL_ALL":
+		top = 2
+		while True:
+			if top > 10:
+				break
+			pid = subprocess.Popen("python crl_crawling.py -m get_connecs -a %d" % top, shell=True)
+			pid.wait()
+			pid = subprocess.Popen("python crl_crawling.py -m parse_certs_from_connecs -a %d" % top, shell=True)
+			pid.wait()
+			pid = subprocess.Popen("python crl_crawling.py -m get_CRLs -a %d" % top, shell=True)
+			pid.wait()
+			top += 1
 	
 	##### Manually checking something  #####
 	########################################

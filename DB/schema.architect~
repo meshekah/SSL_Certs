@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<architect-project version="1.0" appversion="1.0.6">
+ <project-name>schema</project-name>
+ <print-settings numCopies="1" zoom="1.0" pageNumbersPrinted="true" orientation="1" paperWidth="612.0" paperHeight="792.0" leftBorder="50.0" rightBorder="50.0" topBorder="50.0" bottomBorder="50.0" />
+ <project-data-sources>
+  <data-source id="DS0">
+   <property key="Connection Type" value="MySQL" />
+   <property key="Logical" value="PlayPen Database" />
+   <property key="JDBC URL" value="jdbc:mysql://localhost:3306/CRL" />
+   <property key="UID" value="root" />
+   <property key="PWD" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.database" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.port" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.hostname" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.login" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.password" value="" />
+  </data-source>
+  <data-source id="DS2">
+   <property key="Connection Type" value="MySQL" />
+   <property key="Logical" value="local-mysql" />
+   <property key="JDBC URL" value="jdbc:mysql://localhost:3306/" />
+   <property key="UID" value="root" />
+   <property key="PWD" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.database" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.port" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.hostname" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.login" value="" />
+   <property key="ca.sqlpower.architect.etl.kettle.repos.password" value="" />
+  </data-source>
+ </project-data-sources>
+ <source-databases>
+  <database id="DB0" populated="true" UUID="061989ff-0cf9-4f3c-9a52-b502c8a87d09" dbcs-ref="DS2" name="local-mysql" physicalName="local-mysql" >
+   <catalog id="CAT1" populated="false" UUID="02019cc6-1cec-483c-9272-be9ba47cae6e" name="information_schema" nativeTerm="database" physicalName="information_schema" >
+   </catalog>
+   <catalog id="CAT2" populated="false" UUID="a01a69a3-134e-44d4-beac-e45a49a4edcc" name="CRL" nativeTerm="database" physicalName="CRL" >
+   </catalog>
+   <catalog id="CAT3" populated="false" UUID="d28b8f0a-dff5-471d-ba19-b138bcfe9fbb" name="mysql" nativeTerm="database" physicalName="mysql" >
+   </catalog>
+   <catalog id="CAT4" populated="false" UUID="93ba9950-683b-4212-b5ba-5117761595f1" name="performance_schema" nativeTerm="database" physicalName="performance_schema" >
+   </catalog>
+   <catalog id="CAT5" populated="false" UUID="dc882968-5335-4812-98e1-ea669b11204a" name="test" nativeTerm="database" physicalName="test" >
+   </catalog>
+   <relationships>
+   </relationships>
+  </database>
+ </source-databases>
+ <target-database id="ppdb" dbcs-ref="DS0">
+  <table id="TAB7" populated="true" UUID="f7a9b7f1-f57b-42c6-89ce-e8881c1b752e" name="SSL Connection" objectType="TABLE" physicalName="ssl_connec" >
+   <remarks>This hold the information per SSL connection to a website.</remarks>
+   <folder id="FOLTAB71" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL8" populated="true" UUID="b8d91053-8a05-47ac-ac8c-8eb347b50820" autoIncrement="true" autoIncrementSequenceName="ssl_connec_conn_id_seq" defaultValue="" name="conn_id" nullable="0" physicalName="conn_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL9" populated="true" UUID="4b4d3c8a-9cec-4a91-9324-0e93a04fba4e" autoIncrement="false" autoIncrementSequenceName="ssl_connec_protocol_seq" defaultValue="" name="protocol" nullable="0" physicalName="protocol" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL10" populated="true" UUID="47e623d7-b514-47d9-aa20-bc377413754d" autoIncrement="false" autoIncrementSequenceName="ssl_connec_cipher_seq" defaultValue="" name="cipher" nullable="0" physicalName="cipher" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL11" populated="true" UUID="3832e57d-3a4d-4f75-9670-5038bbad1503" autoIncrement="false" autoIncrementSequenceName="certs_cert_id_seq" defaultValue="" name="cert_id" nullable="1" physicalName="cert_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL12" populated="true" UUID="29a1adef-efc2-4cda-93b0-4b846d42427e" autoIncrement="false" autoIncrementSequenceName="ssl_connec_uri_seq" defaultValue="" name="uri" nullable="0" physicalName="uri" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL13" populated="true" UUID="48cba309-035c-4dd6-ae9d-548052ef5106" autoIncrement="false" autoIncrementSequenceName="ssl_connec_top_seq" defaultValue="" name="top" nullable="0" physicalName="top" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL14" populated="true" UUID="1b222807-5db4-4bf8-ab91-e1cd29d965c2" autoIncrement="false" autoIncrementSequenceName="ssl_connec_verify_code_seq" defaultValue="" name="verify_code" nullable="0" physicalName="verify_code" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL15" populated="true" UUID="93b4f4a7-424e-442d-a526-ebcc748d7f3f" autoIncrement="false" autoIncrementSequenceName="ssl_connec_verify_msg_seq" defaultValue="" name="verify_msg" nullable="0" physicalName="verify_msg" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB73" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB72" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB74" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX16" populated="true" UUID="5ac23c2f-2e30-41f0-8bf2-7c4e25315fe9" clustered="false" name="ssl_connec_pk" physicalName="ssl_connec_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC17" populated="true" UUID="d5608034-f9b9-4fcd-8b46-f5f654633421" ascendingOrDescending="UNSPECIFIED" column-ref="COL8" name="conn_id" physicalName="conn_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB18" populated="true" UUID="82c9ec5d-6c9e-4518-b51f-a33ba6d8f701" name="certs" objectType="TABLE" physicalName="certs" >
+   <remarks></remarks>
+   <folder id="FOLTAB181" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL19" populated="true" UUID="6052a840-0e82-4ca6-bcd1-f3866e5c5d17" autoIncrement="true" autoIncrementSequenceName="certs_cert_id_seq" defaultValue="" name="cert_id" nullable="0" physicalName="cert_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL20" populated="true" UUID="92e3ac38-8b97-4829-9f26-15016bb930bb" autoIncrement="false" autoIncrementSequenceName="certs_serial_seq" defaultValue="" name="serial" nullable="0" physicalName="serial" precision="100" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL21" populated="true" UUID="7fbf2e3a-934b-4292-a391-4385b890b4ff" autoIncrement="false" autoIncrementSequenceName="certs_alg_seq" defaultValue="" name="alg" nullable="0" physicalName="alg" precision="100" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL22" populated="true" UUID="14b14aa2-022a-4667-afb7-821beb0bda38" autoIncrement="false" autoIncrementSequenceName="certs_key_length_seq" defaultValue="" name="key_length" nullable="0" physicalName="key_length" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL23" populated="true" UUID="cdf5f274-6f7b-47f6-86af-98d2d83a91f6" autoIncrement="false" autoIncrementSequenceName="certs_cert_digest_seq" defaultValue="" name="cert_digest" nullable="0" physicalName="cert_digest" precision="224" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1" userDefinedTypeUUID="67ddc63f-5541-4dd1-9236-632d9d155e80" >
+     <remarks></remarks>
+    </column>
+    <column id="COL24" populated="true" UUID="29d93d38-77dc-442a-bc7d-8b33ea52c254" autoIncrement="false" autoIncrementSequenceName="certs_issuer_id_seq" defaultValue="" name="issuer_id" nullable="0" physicalName="issuer_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL25" populated="true" UUID="c7a099d0-d556-45a8-8248-305ab6ed2764" autoIncrement="false" autoIncrementSequenceName="certs_subject_id_seq" defaultValue="" name="subject_id" nullable="0" physicalName="subject_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL26" populated="true" UUID="887507ef-30d3-4540-a56f-25e645572cf7" autoIncrement="false" autoIncrementSequenceName="certs_top_seq" defaultValue="" name="top" nullable="0" physicalName="top" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-6" userDefinedTypeUUID="608a1d2c-c960-44ac-b1f3-503aba0a5b7b" >
+     <remarks></remarks>
+    </column>
+    <column id="COL27" populated="true" UUID="3b5b0df4-023d-48a2-aec5-35eaba9e2e5e" autoIncrement="false" autoIncrementSequenceName="certs_cert_name_seq" defaultValue="" name="cert_name" nullable="0" physicalName="cert_name" precision="100" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL28" populated="true" UUID="b85a5616-f9d2-46e3-b798-80067e6b1101" autoIncrement="false" autoIncrementSequenceName="certs_is_self_signed_seq" defaultValue="" name="is_self_signed" nullable="0" physicalName="is_self_signed" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-6" userDefinedTypeUUID="608a1d2c-c960-44ac-b1f3-503aba0a5b7b" >
+     <remarks></remarks>
+    </column>
+    <column id="COL29" populated="true" UUID="8d411190-1f34-4829-b70b-ccb12b8b270e" autoIncrement="false" autoIncrementSequenceName="certs_version_seq" defaultValue="" name="version" nullable="0" physicalName="version" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL30" populated="true" UUID="85e03e73-c2aa-47a8-9c20-82e68ec61e7e" autoIncrement="false" autoIncrementSequenceName="certs_parent_cert_id_seq" defaultValue="" name="parent_cert_id" nullable="1" physicalName="parent_cert_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB183" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB182" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB184" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX31" populated="true" UUID="e0db251f-693a-4572-adae-05fade37fb3c" clustered="false" name="certs_pk" physicalName="certs_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC32" populated="true" UUID="74bcf3e4-ff8d-4fdb-b6c2-83854eef0800" ascendingOrDescending="UNSPECIFIED" column-ref="COL19" name="cert_id" physicalName="cert_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB33" populated="true" UUID="6e8414cf-846c-4501-a2ce-6dc3eb45967b" name="CRLs URI" objectType="TABLE" physicalName="crls_uri" >
+   <remarks></remarks>
+   <folder id="FOLTAB331" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL34" populated="true" UUID="76619df2-b99e-4636-a2e5-5f538f754c8a" autoIncrement="true" autoIncrementSequenceName="crls_uri_crl_uri_id_seq_1" defaultValue="" name="crl_uri_id" nullable="0" physicalName="crl_uri_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL35" populated="true" UUID="a6289567-e066-44d5-b02e-45e4b76d500b" autoIncrement="false" autoIncrementSequenceName="crls_uri_crl_uri_seq" defaultValue="" name="crl_uri" nullable="0" physicalName="crl_uri" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL36" populated="true" UUID="61d961ac-e90f-491b-acf9-8b1589c57fc2" autoIncrement="false" autoIncrementSequenceName="crls_uri_top_seq" defaultValue="" name="top" nullable="0" physicalName="top" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-6" userDefinedTypeUUID="608a1d2c-c960-44ac-b1f3-503aba0a5b7b" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB333" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB332" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB334" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX37" populated="true" UUID="8de8eed4-3524-4eca-badd-a3656ac6bbf8" clustered="false" name="crls_uri_pk" physicalName="crls_uri_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC38" populated="true" UUID="e43f7a7d-c5c1-46c3-a6dd-1906e07a74c1" ascendingOrDescending="UNSPECIFIED" column-ref="COL34" name="crl_uri_id" physicalName="crl_uri_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB39" populated="true" UUID="c594a15e-c0fd-40df-8789-280f1f6846fe" name="CRL Data" objectType="TABLE" physicalName="crls" >
+   <remarks></remarks>
+   <folder id="FOLTAB391" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL40" populated="true" UUID="1357781c-9144-4969-bb0c-05454c57a854" autoIncrement="true" autoIncrementSequenceName="crls_crl_id_seq" defaultValue="" name="crl_id" nullable="0" physicalName="crl_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL41" populated="true" UUID="6eec921b-36a8-4be0-94ef-fd6360184acc" autoIncrement="false" autoIncrementSequenceName="crls_uri_crl_uri_id_seq_1_1" defaultValue="" name="crl_uri_id" nullable="0" physicalName="crl_uri_id" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL42" populated="true" UUID="1459aba8-7595-49ff-a9b1-fad12674c873" autoIncrement="false" autoIncrementSequenceName="crls_crl_serial_num_seq" defaultValue="" name="crl_serial_num" nullable="0" physicalName="crl_serial_num" precision="224" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1" userDefinedTypeUUID="67ddc63f-5541-4dd1-9236-632d9d155e80" >
+     <remarks></remarks>
+    </column>
+    <column id="COL43" populated="true" UUID="f8e44a10-93f5-4821-8304-8a5d35823dcb" autoIncrement="false" autoIncrementSequenceName="crls_num_of_revoked_seq" defaultValue="" name="num_of_revoked" nullable="0" physicalName="num_of_revoked" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL44" populated="true" UUID="7637356d-579e-4ac3-be24-7c476a5d4aa7" autoIncrement="false" autoIncrementSequenceName="crls_crl_size_seq" defaultValue="" name="crl_size" nullable="0" physicalName="crl_size" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL45" populated="true" UUID="4c1d1b93-c92d-42bd-a552-d007d8f8eb5c" autoIncrement="false" autoIncrementSequenceName="crls_crl_digest_seq" defaultValue="" name="crl_digest" nullable="0" physicalName="crl_digest" precision="256" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="1" userDefinedTypeUUID="67ddc63f-5541-4dd1-9236-632d9d155e80" >
+     <remarks></remarks>
+    </column>
+    <column id="COL46" populated="true" UUID="23591c70-a97e-4a64-9744-3707d9f01d9b" autoIncrement="false" autoIncrementSequenceName="crls_rNone_seq" defaultValue="" name="rNone" nullable="0" physicalName="rNone" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL47" populated="true" UUID="a115b8ef-4cf2-49bf-bf90-299f414b7121" autoIncrement="false" autoIncrementSequenceName="crls_unspecified_seq" defaultValue="" name="unspecified" nullable="0" physicalName="unspecified" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL48" populated="true" UUID="d5f6256b-c5a2-4c8c-b9c8-954c475b46c5" autoIncrement="false" autoIncrementSequenceName="crls_keyCompromise_seq" defaultValue="" name="keyCompromise" nullable="0" physicalName="keyCompromise" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL49" populated="true" UUID="afc00334-d449-4b99-8b92-adf119c08733" autoIncrement="false" autoIncrementSequenceName="crls_cACompromise_seq" defaultValue="" name="cACompromise" nullable="0" physicalName="cACompromise" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL50" populated="true" UUID="42176aec-1c1b-4e4d-9e3c-bf417df787d1" autoIncrement="false" autoIncrementSequenceName="crls_affiliationChanged_seq" defaultValue="" name="affiliationChanged" nullable="0" physicalName="affiliationChanged" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL51" populated="true" UUID="d0272c2a-7bb2-4004-92f9-8a37135e78af" autoIncrement="false" autoIncrementSequenceName="crls_superseded_seq" defaultValue="" name="superseded" nullable="0" physicalName="superseded" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL52" populated="true" UUID="a70d7b0e-968c-4618-9799-90792897cf27" autoIncrement="false" autoIncrementSequenceName="crls_cessationOfOperation_seq" defaultValue="" name="cessationOfOperation" nullable="0" physicalName="cessationOfOperation" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL53" populated="true" UUID="0ae3e064-b67a-4d21-965a-282954e28857" autoIncrement="false" autoIncrementSequenceName="crls_certificateHold_seq" defaultValue="" name="certificateHold" nullable="0" physicalName="certificateHold" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL54" populated="true" UUID="5b14f6a4-8248-4418-9ab8-4e3a748bedbb" autoIncrement="false" autoIncrementSequenceName="crls_removeFromCRL_seq" defaultValue="" name="removeFromCRL" nullable="0" physicalName="removeFromCRL" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL55" populated="true" UUID="bdf71cc2-04eb-4065-bdfe-6497cac2003f" autoIncrement="false" autoIncrementSequenceName="crls_privilegeWithdrawn_seq" defaultValue="" name="privilegeWithdrawn" nullable="0" physicalName="privilegeWithdrawn" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL56" populated="true" UUID="058dd8b7-45a0-417a-90df-b659ab776041" autoIncrement="false" autoIncrementSequenceName="crls_aACompromise_seq" defaultValue="" name="aACompromise" nullable="0" physicalName="aACompromise" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL57" populated="true" UUID="fa505405-85b0-4185-939c-ff0e81cec95e" autoIncrement="false" autoIncrementSequenceName="crls_wrong_seq" defaultValue="" name="wrong" nullable="0" physicalName="wrong" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB393" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB392" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB394" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX58" populated="true" UUID="13150306-f40b-4f4a-b030-09b8c242ba46" clustered="false" name="crls_pk" physicalName="crls_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC59" populated="true" UUID="f8b1f0ea-0137-4e22-9ef9-28124cf88b73" ascendingOrDescending="UNSPECIFIED" column-ref="COL40" name="crl_id" physicalName="crl_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB60" populated="true" UUID="3a8fff64-4471-4cba-8b8e-a84da6e4ce29" name="Authority Info Access" objectType="TABLE" physicalName="authority" >
+   <remarks></remarks>
+   <folder id="FOLTAB601" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL61" populated="true" UUID="9dfca6b3-9a72-4dc8-b26a-e4493d425917" autoIncrement="true" autoIncrementSequenceName="authority_auth_id_seq" defaultValue="" name="auth_id" nullable="0" physicalName="auth_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL62" populated="true" UUID="b402bf09-383e-41f2-a083-17232b37c8fb" autoIncrement="false" autoIncrementSequenceName="authority_auth_uri_seq" defaultValue="" name="auth_uri" nullable="0" physicalName="auth_uri" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL63" populated="true" UUID="2c7d981d-4b1f-4121-9ed9-d0aed1500c37" autoIncrement="false" autoIncrementSequenceName="authority_top_seq" defaultValue="" name="top" nullable="0" physicalName="top" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-6" userDefinedTypeUUID="608a1d2c-c960-44ac-b1f3-503aba0a5b7b" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB603" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB602" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB604" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX64" populated="true" UUID="a9961815-6f38-47cd-ae85-e7cd48f1c0d2" clustered="false" name="authority_pk" physicalName="authority_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC65" populated="true" UUID="cfc5e4c8-9ac7-4904-9077-196ae7cd59fc" ascendingOrDescending="UNSPECIFIED" column-ref="COL61" name="auth_id" physicalName="auth_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB66" populated="true" UUID="a16fb5cc-b3aa-46b6-ad2d-b78ad52e5aa2" name="Names" objectType="TABLE" physicalName="names" >
+   <remarks></remarks>
+   <folder id="FOLTAB661" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL67" populated="true" UUID="0a1da93b-0890-477d-8003-21e739ce02e8" autoIncrement="true" autoIncrementSequenceName="names_name_id_seq" defaultValue="" name="name_id" nullable="0" physicalName="name_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL68" populated="true" UUID="f01fba56-32f0-4ecb-be6d-ba102dfe5c08" autoIncrement="false" autoIncrementSequenceName="names_country_seq" defaultValue="" name="country" nullable="1" physicalName="country" precision="50" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL69" populated="true" UUID="6771e3b3-5a14-4868-97a2-13f807944831" autoIncrement="false" autoIncrementSequenceName="names_org_seq" defaultValue="" name="org" nullable="0" physicalName="org" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL70" populated="true" UUID="561f888c-cf97-4f64-8ef3-2b7403c6b076" autoIncrement="false" autoIncrementSequenceName="names_org_unit_seq" defaultValue="" name="org_unit" nullable="1" physicalName="org_unit" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL71" populated="true" UUID="7d92e094-7d36-4540-a832-a08feb55693b" autoIncrement="false" autoIncrementSequenceName="names_com_name_seq" defaultValue="" name="com_name" nullable="1" physicalName="com_name" precision="255" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
+     <remarks></remarks>
+    </column>
+    <column id="COL72" populated="true" UUID="d56a02e2-8912-480a-8f14-c0778159f774" autoIncrement="false" autoIncrementSequenceName="names_top_seq" defaultValue="" name="top" nullable="0" physicalName="top" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="-6" userDefinedTypeUUID="608a1d2c-c960-44ac-b1f3-503aba0a5b7b" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB663" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB662" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB664" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX73" populated="true" UUID="4461ed97-5607-4baf-83fc-d827f08016d0" clustered="false" name="names_pk" physicalName="names_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC74" populated="true" UUID="2c0c7f24-fe25-45cd-ab9a-ecf94174026f" ascendingOrDescending="UNSPECIFIED" column-ref="COL67" name="name_id" physicalName="name_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB75" populated="true" UUID="42435b5b-8b55-4d9d-b13e-2fc0b3342e10" name="Certificates and Authority URI" objectType="TABLE" physicalName="certs_auth" >
+   <remarks></remarks>
+   <folder id="FOLTAB751" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL76" populated="true" UUID="03214f7a-401c-4057-bf22-5311f95a9e4a" autoIncrement="false" autoIncrementSequenceName="authority_auth_id_seq" defaultValue="" name="auth_id" nullable="0" physicalName="auth_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL77" populated="true" UUID="0d09747b-e3c8-4e2e-ad36-3a554f468e39" autoIncrement="false" autoIncrementSequenceName="certs_cert_id_seq_1" defaultValue="" name="cert_id" nullable="0" physicalName="cert_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB753" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB752" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB754" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX78" populated="true" UUID="c9945331-da5e-4519-bcd4-d59ba9a86b20" clustered="false" name="certs_auth_pk" physicalName="certs_auth_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC79" populated="true" UUID="746d0b4f-7681-4370-8758-9860876c7ff3" ascendingOrDescending="UNSPECIFIED" column-ref="COL76" name="auth_id" physicalName="auth_id" />
+     <index-column id="IDC80" populated="true" UUID="634aa4a8-05c5-4c88-b8d6-6d7efc068ae2" ascendingOrDescending="UNSPECIFIED" column-ref="COL77" name="cert_id" physicalName="cert_id" />
+    </index>
+   </folder>
+  </table>
+  <table id="TAB81" populated="true" UUID="295c2662-7080-4103-86c6-bb784cef1f0e" name="Certificates and CRL URIs" objectType="TABLE" physicalName="certs_crls" >
+   <remarks></remarks>
+   <folder id="FOLTAB811" populated="true" name="Columns" physicalName="Columns" type="1">
+    <column id="COL82" populated="true" UUID="a5047e96-9646-4b36-973d-2f1ccd9c3dbb" autoIncrement="false" autoIncrementSequenceName="certs_cert_id_seq_1" defaultValue="" name="cert_id" nullable="0" physicalName="cert_id" precision="0" primaryKeySeq="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    <column id="COL83" populated="true" UUID="618ad243-6599-48b5-a497-c74cc40504ea" autoIncrement="false" autoIncrementSequenceName="crls_uri_crl_uri_id_seq_1" defaultValue="" name="crl_uri_id" nullable="0" physicalName="crl_uri_id" precision="0" primaryKeySeq="1" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="4" userDefinedTypeUUID="63b011c7-c81f-4c75-8271-632b3c87f727" >
+     <remarks></remarks>
+    </column>
+    </folder>
+    <folder id="FOLTAB813" populated="true" name="Exported Keys" physicalName="Exported Keys" type="3">
+    </folder>
+    <folder id="FOLTAB812" populated="true" name="Imported Keys" physicalName="Imported Keys" type="2">
+    </folder>
+    <folder id="FOLTAB814" populated="true" name="Indices" physicalName="Indices" type="4">
+    <index id="IDX84" populated="true" UUID="adeb944a-1280-4271-b790-e2f567463c49" clustered="false" name="certs_crls_pk" physicalName="certs_crls_pk" primaryKeyIndex="true" unique="false" >
+     <index-column id="IDC85" populated="true" UUID="225d9a9a-31b9-4832-ba88-162b835d1d11" ascendingOrDescending="UNSPECIFIED" column-ref="COL82" name="cert_id" physicalName="cert_id" />
+     <index-column id="IDC86" populated="true" UUID="b0f4fb77-56b3-426a-9790-213f913dafbc" ascendingOrDescending="UNSPECIFIED" column-ref="COL83" name="crl_uri_id" physicalName="crl_uri_id" />
+    </index>
+   </folder>
+  </table>
+  <relationships>
+   <relationship id="REL87" populated="true" UUID="6d3c0f9e-3526-4717-9bf7-88eba4b914bd" deferrability="7" deleteRule="3" fk-table-ref="TAB7" fkCardinality="7" identifying="false" name="certs_ssl_connec_fk" physicalName="certs_ssl_connec_fk" pk-table-ref="TAB18" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP88" populated="true" UUID="7c89d6de-8a00-4ee8-a3f5-aaa418bea14d" fk-column-ref="COL11" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL19" />
+   </relationship>
+   <relationship id="REL89" populated="true" UUID="f592989b-882c-437f-89f5-e31fbf6356f0" deferrability="7" deleteRule="3" fk-table-ref="TAB75" fkCardinality="7" identifying="true" name="certs_certs_auth_fk" physicalName="certs_certs_auth_fk" pk-table-ref="TAB18" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP90" populated="true" UUID="16dc6f9a-d7bb-4ce2-98c0-60f73d4fca35" fk-column-ref="COL77" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL19" />
+   </relationship>
+   <relationship id="REL91" populated="true" UUID="3abe1338-e1c8-46b6-925b-4e1ad87b4a2b" deferrability="7" deleteRule="3" fk-table-ref="TAB81" fkCardinality="7" identifying="true" name="certs_certs_crls_fk" physicalName="certs_certs_crls_fk" pk-table-ref="TAB18" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP92" populated="true" UUID="78343c27-85da-411e-9c00-f429b93a23b8" fk-column-ref="COL82" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL19" />
+   </relationship>
+   <relationship id="REL93" populated="true" UUID="c4d91dda-917e-4795-9877-a756edbfb978" deferrability="7" deleteRule="3" fk-table-ref="TAB18" fkCardinality="7" identifying="false" name="certs_certs_fk" physicalName="certs_certs_fk" pk-table-ref="TAB18" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP94" populated="true" UUID="ded50d85-162e-48b2-bf94-314252f87c62" fk-column-ref="COL30" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL19" />
+   </relationship>
+   <relationship id="REL95" populated="true" UUID="5f7d7465-88d1-48d8-9467-a6ad8491a5a4" deferrability="7" deleteRule="3" fk-table-ref="TAB39" fkCardinality="7" identifying="false" name="crls_uri_crls_fk" physicalName="crls_uri_crls_fk" pk-table-ref="TAB33" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP96" populated="true" UUID="16919fab-aa6f-4c5f-9600-d60fb7d6341c" fk-column-ref="COL41" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL34" />
+   </relationship>
+   <relationship id="REL97" populated="true" UUID="088e2af0-d7f2-4a0a-983b-704173956c62" deferrability="7" deleteRule="3" fk-table-ref="TAB81" fkCardinality="7" identifying="true" name="crls_uri_certs_crls_fk" physicalName="crls_uri_certs_crls_fk" pk-table-ref="TAB33" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP98" populated="true" UUID="24fa4a55-a433-4e67-a813-9018e12f4bcd" fk-column-ref="COL83" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL34" />
+   </relationship>
+   <relationship id="REL99" populated="true" UUID="74a6d018-1787-474a-a9a7-a46581a9ef26" deferrability="7" deleteRule="3" fk-table-ref="TAB75" fkCardinality="7" identifying="true" name="authority_certs_auth_fk" physicalName="authority_certs_auth_fk" pk-table-ref="TAB60" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP100" populated="true" UUID="2c0319b1-2660-434f-ae8b-a51a85dd822c" fk-column-ref="COL76" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL61" />
+   </relationship>
+   <relationship id="REL101" populated="true" UUID="2cb181b9-9a9c-474b-ae71-b158d936bac6" deferrability="7" deleteRule="3" fk-table-ref="TAB18" fkCardinality="7" identifying="false" name="issuers_certs_fk" physicalName="issuers_certs_fk" pk-table-ref="TAB66" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP102" populated="true" UUID="9777aa80-31c7-4672-b87d-34e72164da7a" fk-column-ref="COL24" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL67" />
+   </relationship>
+   <relationship id="REL103" populated="true" UUID="fe860568-22a8-429c-a756-6ab830cbab87" deferrability="7" deleteRule="3" fk-table-ref="TAB18" fkCardinality="7" identifying="false" name="names_certs_fk" physicalName="names_certs_fk" pk-table-ref="TAB66" pkCardinality="2" updateRule="3" >
+    <column-mapping id="CMP104" populated="true" UUID="f97c41a1-8426-4d90-88a9-3e23a8e602e5" fk-column-ref="COL25" name="Column Mapping" physicalName="Column Mapping" pk-column-ref="COL67" />
+   </relationship>
+  </relationships>
+ </target-database>
+ <ddl-generator type="ca.sqlpower.architect.ddl.MySqlDDLGenerator" allow-connection="true" target-catalog="CRL"> </ddl-generator>
+ <liquibase-settings useSeparateChangeSets="false" generateId="false" idStart="1"/>
+ <create-kettle-job-settings filePath="" jobName="" schemaName="" kettleJoinType="0" savingToFile="true" />
+ <play-pen zoom="1.0" viewportX="0" viewportY="0" relationship-style="rectilinear" names-displayLogicalNames="true" showPrimaryTag="true" showForeignTag="true" showAlternateTag="true" columnVisibility="ALL" relationshipLabelVisibility="true">
+  <table-pane table-ref="TAB7" x="805" y="20" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB18" x="706" y="266" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB33" x="412" y="569" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB39" x="20" y="372" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB60" x="64" y="69" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB66" x="46" y="197" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB75" x="389" y="70" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-pane table-ref="TAB81" x="683" y="614" bgColor="0xeeeeee" fgColor="0x000000" rounded="false" dashed="false"/>
+  <table-link relationship-ref="REL87" pkConnection="0.759656652360515" fkConnection="0.30927835051546393" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL95" pkConnection="0.0" fkConnection="0.3573667711598746" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="18"/>
+  <table-link relationship-ref="REL101" pkConnection="0.33858267716535434" fkConnection="0.03587443946188341" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL103" pkConnection="0.952755905511811" fkConnection="0.46859903381642515" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL99" pkConnection="1.0" fkConnection="0.23809523809523808" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL89" pkConnection="0.30735930735930733" fkConnection="0.5979381443298969" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="72"/>
+  <table-link relationship-ref="REL91" pkConnection="0.24675324675324675" fkConnection="0.6288659793814433" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="132"/>
+  <table-link relationship-ref="REL97" pkConnection="1.0" fkConnection="0.0" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="33"/>
+  <table-link relationship-ref="REL93" pkConnection="0.6008583690987125" fkConnection="0.7053140096618358" rLineColor="0x000000" pkLabelText="" fkLabelText="" orientation="36"/>
+ </play-pen>
+ <critic-manager>
+  <critic-grouping platformType="Generic" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PrimaryKeyCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.RelationshipMappingTypeCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.EmptyRelationshipCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.AlphaNumericSequenceNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetDefaultOnColumnWithNoDefaultCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SetNullOnNonNullableColumnCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DuplicateNameCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="DB2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.DB2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="H2" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.H2UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="HSQLDB" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.HSQLDBUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="MySQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLCommentCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.MySQLUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="Oracle" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OraclePhysicalNameCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleReservedWordsCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.OracleUnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="PostgreSQL" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.PostgreSQLReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerUnsupportedFeaturesCritic" severity="ERROR"/>
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServerReservedWordsCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2000" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2000UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+  <critic-grouping platformType="SQL Server 2005" enabled="true">
+   <critic-settings class="ca.sqlpower.architect.ddl.critic.impl.SQLServer2005UnsupportedFeaturesCritic" severity="ERROR"/>
+  </critic-grouping>
+ </critic-manager>
+ <profiles topNCount="10">
+  </profiles>
+  <olap>
+  </olap>
+  <olap-gui>
+  </olap-gui>
+</architect-project>
