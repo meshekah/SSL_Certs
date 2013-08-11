@@ -1,0 +1,20 @@
+This code is used to get the SSL connection information from the Alexa top one million website.
+The code can be easily extendable to get the SSL connection informtion from all the IPv4 address by simple modification to the code.
+
+The code has been developed using python 2.7.5 with mySQL version 5.6.11. MySQL must be running for the majority of this code to work. You should have a VERY good internet connection as this will be making a million SSL connection to gather information.
+
+The following python libraries has been used:
+MySQLdb, OpenSSL
+
+The DB visuallized schema is available in "schema.architect" under the DB folder. You must create a database (i.e. schma) called CRL.
+
+To get started just run:
+     python crl_crawling.py -h
+
+
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at http://mozilla.org/MPL/2.0/.
+# This code has been developed by Mohammed Almeshekah (www.meshekah.com)
+# This is version 0.1
+# Please contect me with any questions at: meshekah [at] gmail.com
